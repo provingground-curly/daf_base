@@ -52,6 +52,7 @@ def getPropertySetState(container, asLists=False):
     state : `list` of `tuple` or `list` of `list`
         The state, as a list of tuples (or lists), each of which contains
         the following 3 items:
+
         - name (a `str`): the name of the item
         - elementTypeName (a `str`): the suffix of a ``setX`` method name
             which is appropriate for the data type. For example integer
@@ -59,6 +60,7 @@ def getPropertySetState(container, asLists=False):
             the ``setInt`` method.
         - value: the data for the item, in a form compatible
             with the set method named by ``elementTypeName``
+
     """
     names = container.names(topLevelOnly=True)
     sequence = list if asLists else tuple
@@ -83,6 +85,7 @@ def getPropertyListState(container, asLists=False):
     state : `list` of `tuple` or `list` of `list`
         The state, as a list of tuples (or lists), each of which contains
         the following 4 items:
+
         - name (a `str`): the name of the item
         - elementTypeName (a `str`): the suffix of a ``setX`` method name
             which is appropriate for the data type. For example integer
@@ -92,6 +95,7 @@ def getPropertyListState(container, asLists=False):
             with the set method named by ``elementTypeName``
         - comment (a `str`): the comment. This item is only present
             if ``container`` is a PropertyList.
+
     """
     sequence = list if asLists else tuple
     return [sequence((name, _propertyContainerElementTypeName(container, name),
@@ -167,6 +171,7 @@ def _propertyContainerGet(container, name, returnStyle):
         Control whether numeric or string data is returned as an array
         or scalar (the other types, ``PropertyList``, ``PropertySet``
             and ``PersistablePtr``, are always returned as a scalar):
+
         - ReturnStyle.ARRAY: return numeric or string data types
             as an array of values.
         - ReturnStyle.SCALAR: return numeric or string data types
@@ -214,6 +219,8 @@ def _guessIntegerType(container, name, value):
     that should be used for the supplied value. The supplied value
     is assumed to be a scalar.
 
+    Notes
+    -----
     On Python 3 all ints are LongLong but we need to be able to store them
     in Int containers if that is what is being used (testing for truncation).
     Int is assumed to mean 32bit integer (2147483647 to -2147483648).

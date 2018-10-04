@@ -32,9 +32,11 @@ from .citizen import Citizen
 def setCallbacks(new=None, delete=None, both=False):
     """Set the callback IDs for the Citizen; if both is true, set both new and delete to the same value
 
+    Notes
+    -----
     You probably want to chant the following to gdb:
-       break defaultNewCallback
-       break defaultDeleteCallback
+    break defaultNewCallback
+    break defaultDeleteCallback
 
     You might want to put this in your .gdbinit file.
 
@@ -56,20 +58,32 @@ def setCallbacks(new=None, delete=None, both=False):
 
 
 def mortal(memId0=0, nleakPrintMax=20, first=True, showTypes=None):
-    """!Print leaked memory blocks
+    """Print leaked memory blocks
 
-    @param memId0 Only consider blocks allocated after this memId
-    @param nleakPrintMax Maximum number of leaks to print; <= 0 means unlimited
-    @param first Print the first nleakPrintMax blocks; if False print the last blocks.
-    @param showTypes Only print objects matching this regex (if starts with !, print objects that don't match)
+    Parameters
+    ----------
+    memId0 :
+        Only consider blocks allocated after this memId
+    nleakPrintMax :
+        Maximum number of leaks to print; <= 0 means unlimited
+    first :
+    Print the first nleakPrintMax blocks; if False print the last blocks.
+    showTypes :
+        Only print objects matching this regex (if starts with !, print objects that don't match)
 
+    Notes
+    -----
     If you want finer control than nleakPrintMax/first provide, use
     Citizen.census() to get the entire list
 
     You can get the next memId to be allocated with mortal("set"), e.g.
+
+    .. code-block:: none
+
         memId0 = mortal("set")
         # work work work
         mortal(memId0)
+
     """
     if memId0 == 'set':
         return Citizen.getNextMemId()
